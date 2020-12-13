@@ -1,7 +1,7 @@
 plugins {
-	id 'java'
 	id 'java-library'
 	id "com.commercehub.gradle.plugin.avro" version "0.9.1"
+	id 'maven-publish'
 }
 
 group = 'com.github.diegofernandodasilva'
@@ -11,6 +11,7 @@ sourceCompatibility = '11'
 repositories {
 	jcenter()
 	mavenCentral()
+	mavenLocal()
 }
 
 dependencies {
@@ -19,5 +20,30 @@ dependencies {
 
 avro {
 	fieldVisibility = "PRIVATE"
-//	templateDirectory = "./build/templates"
+}
+
+java {
+	withJavadocJar()
+	withSourcesJar()
+}
+
+java {
+	withJavadocJar()
+	withSourcesJar()
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+			versionMapping {
+				usage('java-api') {
+					fromResolutionOf('runtimeClasspath')
+				}
+				usage('java-runtime') {
+					fromResolutionResult()
+				}
+			}
+		}
+	}
 }
