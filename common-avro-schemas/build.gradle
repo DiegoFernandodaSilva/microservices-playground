@@ -1,0 +1,23 @@
+plugins {
+	id 'java'
+	id 'java-library'
+	id "com.commercehub.gradle.plugin.avro" version "0.9.1"
+}
+
+group = 'com.github.diegofernandodasilva'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	jcenter()
+	mavenCentral()
+}
+
+dependencies {
+	api 'org.apache.avro:avro:1.10.1'
+}
+
+avro {
+	fieldVisibility = "PRIVATE"
+//	templateDirectory = "./build/templates"
+}

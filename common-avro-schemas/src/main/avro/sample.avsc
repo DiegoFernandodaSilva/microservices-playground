@@ -1,0 +1,29 @@
+{
+  "namespace": "com.github.diegofernandodasilva.microservices.playground",
+  "type": "record",
+  "name": "Sample",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string",
+      "doc": "Some test Id"
+    },
+    {
+      "name": "message",
+      "type": ["string", "null"],
+      "doc": "Some test description"
+    },
+    {
+      "name": "type",
+      "type": {
+        "type": "enum",
+        "name": "typeMsg",
+        "symbols": [
+          "TYPE_ONE",
+          "TYPE_TWO"
+        ]
+
+      }
+    }
+  ]
+}
