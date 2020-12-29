@@ -6,10 +6,10 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: password
-  jpa:
-    generate-ddl: true
-    hibernate:
-      ddl-auto: create
+#  jpa:
+#    generate-ddl: true
+#    hibernate:
+#      ddl-auto: create
   security:
     oauth2:
       resourceserver:
@@ -19,3 +19,11 @@ spring:
 
 wuhan-coronavirus:
   url: https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai
+
+microservices:
+  oauth:
+    security:
+      enabled: true
+  kafka:
+    topic:
+      country.covid19.statistics.changed: country.covid19.statistics.changed

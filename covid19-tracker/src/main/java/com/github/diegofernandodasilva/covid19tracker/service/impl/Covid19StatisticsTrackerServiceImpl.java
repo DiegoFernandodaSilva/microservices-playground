@@ -50,7 +50,7 @@ public class Covid19StatisticsTrackerServiceImpl implements Covid19StatisticsTra
         final CountryCovid19Statistics oldCovid19Statistics =
                 countryCovid19StatisticsService.getByCountry(newCovid19Statistics.getCountry());
 
-        if (oldCovid19Statistics.getLastUpdate().compareTo(newCovid19Statistics.getLastUpdate()) != 0) {
+        if (oldCovid19Statistics.getLastUpdated().compareTo(newCovid19Statistics.getLastUpdated()) != 0) {
             countryCovid19StatisticsService.update(newCovid19Statistics);
         }
     }

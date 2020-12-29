@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.Instant;
 import java.util.Optional;
@@ -25,6 +26,9 @@ public class CountryCovid19StatisticsServiceTest {
     @Autowired
     private CountryRepository countryRepository;
     public Country country;
+
+    @MockBean
+    public CountryCovid19StatisticsChangedSenderService senderService;
 
 
     @BeforeEach
@@ -66,7 +70,7 @@ public class CountryCovid19StatisticsServiceTest {
         CountryCovid19Statistics savedEntity = countryCovid19StatisticsService.create(entityBeforeSave);
 
         assertNotNull(savedEntity.getId());
-        assertEquals(entityBeforeSave.getLastUpdate(), savedEntity.getLastUpdate());
+        assertEquals(entityBeforeSave.getLastUpdated(), savedEntity.getLastUpdated());
         assertEquals(entityBeforeSave.getCountry().getCountryRegion(), savedEntity.getCountry().getCountryRegion());
     }
 
@@ -76,13 +80,13 @@ public class CountryCovid19StatisticsServiceTest {
 
         CountryCovid19Statistics updatedEntity = countryCovid19Statistics();
         updatedEntity.setStatistics(new Covid19Statistics(150L, 2L, 70L));
-        updatedEntity.setLastUpdate(Instant.now());
+        updatedEntity.setLastUpdated(Instant.now());
 
         countryCovid19StatisticsService.update(updatedEntity);
 
         CountryCovid19Statistics entityAfterUpdate = repository.findById(entityBeforeUpdate.getId()).get();
 
-        assertNotEquals(entityBeforeUpdate.getLastUpdate(), entityAfterUpdate.getLastUpdate());
+        assertNotEquals(entityBeforeUpdate.getLastUpdated(), entityAfterUpdate.getLastUpdated());
         assertEquals(entityBeforeUpdate.getCountry().getCountryRegion(), entityAfterUpdate.getCountry().getCountryRegion());
     }
 

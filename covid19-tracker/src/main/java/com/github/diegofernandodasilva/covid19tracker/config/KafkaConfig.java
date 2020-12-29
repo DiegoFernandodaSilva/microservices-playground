@@ -1,6 +1,6 @@
 package com.github.diegofernandodasilva.covid19tracker.config;
 
-import com.github.diegofernandodasilva.microservices.playground.Sample;
+import com.github.diegofernandodasilva.microservices.playground.covid19tracker.CountryCovid19StatisticsChanged;
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
@@ -33,13 +33,13 @@ public class KafkaConfig {
     }
 
     @Bean
-    public ProducerFactory<String, Sample> sampleProducerFactory() {
+    public ProducerFactory<String, CountryCovid19StatisticsChanged> countryCovid19StatisticsChangedProducerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfigProps());
     }
 
     @Bean
-    public KafkaTemplate<String, Sample> sampleKafkaTemplate() {
-        return new KafkaTemplate<String, Sample>(sampleProducerFactory());
+    public KafkaTemplate<String, CountryCovid19StatisticsChanged> countryCovid19StatisticsChangedKafkaTemplate() {
+        return new KafkaTemplate<String, CountryCovid19StatisticsChanged>(countryCovid19StatisticsChangedProducerFactory());
     }
 
     private Map<String, Object> consumerConfigProps() {

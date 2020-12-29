@@ -2,9 +2,11 @@ package com.github.diegofernandodasilva.covid19tracker.service.impl;
 
 import com.github.diegofernandodasilva.covid19tracker.exception.EntityAlreadyExistsException;
 import com.github.diegofernandodasilva.covid19tracker.exception.NotFoundException;
+import com.github.diegofernandodasilva.covid19tracker.mapper.CountryCovid19StatisticsChangedMapper;
 import com.github.diegofernandodasilva.covid19tracker.repository.CountryCovid19StatisticsRepository;
 import com.github.diegofernandodasilva.covid19tracker.repository.entity.Country;
 import com.github.diegofernandodasilva.covid19tracker.repository.entity.CountryCovid19Statistics;
+import com.github.diegofernandodasilva.covid19tracker.service.CountryCovid19StatisticsChangedSenderService;
 import com.github.diegofernandodasilva.covid19tracker.service.CountryCovid19StatisticsService;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +22,13 @@ import java.util.Optional;
 public class CountryCovid19StatisticsServiceImpl implements CountryCovid19StatisticsService {
 
     private CountryCovid19StatisticsRepository repository;
+    private CountryCovid19StatisticsChangedSenderService changedSenderService;
 
     @Autowired
-    public CountryCovid19StatisticsServiceImpl(CountryCovid19StatisticsRepository repository) {
+    public CountryCovid19StatisticsServiceImpl(CountryCovid19StatisticsRepository repository,
+                                               CountryCovid19StatisticsChangedSenderService changedSenderService) {
         this.repository = repository;
+        this.changedSenderService = changedSenderService;
     }
 
     @Override
@@ -33,7 +38,9 @@ public class CountryCovid19StatisticsServiceImpl implements CountryCovid19Statis
                     String.format("Covid19 statistic for country: %s already exists!", covid19Statistics.getCountry())
             );
         }
-        return repository.save(covid19Statistics);
+        repository.save(covid19Statistics);
+        changedSenderService.send(CountryCovid19StatisticsChangedMapper.INSTANCE.map(covid19Statistics));
+        return covid19Statistics;
     }
 
     @Override
@@ -41,6 +48,7 @@ public class CountryCovid19StatisticsServiceImpl implements CountryCovid19Statis
         CountryCovid19Statistics foundStatistics = getByCountry(entity.getCountry());
         entity.setId(foundStatistics.getId());
         repository.save(entity);
+        changedSenderService.send(CountryCovid19StatisticsChangedMapper.INSTANCE.map(entity));
     }
 
     @Override

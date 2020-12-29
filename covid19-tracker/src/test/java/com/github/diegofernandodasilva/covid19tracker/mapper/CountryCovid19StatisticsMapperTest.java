@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CountryCovid19StatisticsMapperTest {
 
     @Test
-    public void mapToDTO() {
+    public void mapToDTOTest() {
         final CountryCovid19Statistics entity = new CountryCovid19Statistics(1L,
                 new Country(1L, "KoKoKo", new CountryEntryCode("KK", "KKK"), new Location(10.0F, 11.04F)),
                 new Covid19Statistics(100L, 1L, 50L),
@@ -25,7 +25,7 @@ public class CountryCovid19StatisticsMapperTest {
     }
 
     @Test
-    public void mapToEntity() {
+    public void mapToEntityTest() {
         final CountryCovid19StatisticsDTO dto = new CountryCovid19StatisticsDTO("KoKoKo",
                 new LocationDTO(10.0F, 11.04F),
                 Instant.now(),
@@ -46,7 +46,7 @@ public class CountryCovid19StatisticsMapperTest {
         assertEquals(entity.getCountry().getCountryRegion(), dto.getCountryRegion());
         assertEquals(entity.getCountry().getLocation().getLat(), dto.getLocation().getLat());
         assertEquals(entity.getCountry().getLocation().getLon(), dto.getLocation().getLng());
-        assertEquals(entity.getLastUpdate(), dto.getLastUpdate());
+        assertEquals(entity.getLastUpdated(), dto.getLastUpdated());
 
     }
 }

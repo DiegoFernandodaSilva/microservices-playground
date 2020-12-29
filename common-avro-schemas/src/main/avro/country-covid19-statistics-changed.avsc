@@ -1,0 +1,32 @@
+{
+  "namespace": "com.github.diegofernandodasilva.microservices.playground.covid19tracker",
+  "type": "record",
+  "name": "CountryCovid19StatisticsChanged",
+  "fields": [
+    {
+      "name": "countryRegion",
+      "type": "string",
+      "doc": "Country's region"
+    },
+    {
+      "name": "confirmed",
+      "type": "long",
+      "doc": "Number of Covid19 confirmed."
+    },
+    {
+      "name": "deaths",
+      "type": "long",
+      "doc": "Number of deaths from Covid19."
+    },
+    {
+      "name": "recovered",
+      "type": "long",
+      "doc": "Number of recovered from Covid19."
+    },
+    {
+      "name": "lastUpdate",
+      "type": "long",
+      "doc": "Last time statistics has been updated."
+    }
+  ]
+}

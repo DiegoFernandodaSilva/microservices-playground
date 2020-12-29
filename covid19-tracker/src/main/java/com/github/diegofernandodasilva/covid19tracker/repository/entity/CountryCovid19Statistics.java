@@ -20,5 +20,5 @@ public class CountryCovid19Statistics {
     private Country country;
     @Embedded
     private Covid19Statistics statistics;
-    private Instant lastUpdate;
+    private Instant lastUpdated;
 }

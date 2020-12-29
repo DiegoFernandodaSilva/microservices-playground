@@ -16,7 +16,7 @@ public class CountryCovid19StatisticsDTO {
     private String countryRegion;
     private LocationDTO location;
     @JsonProperty(value = "lastupdate")
-    private Instant lastUpdate;
+    private Instant lastUpdated;
     private Long confirmed;
     private Long deaths;
     private Long recovered;
