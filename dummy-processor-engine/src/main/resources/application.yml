@@ -5,5 +5,10 @@ spring:
     bootstrap-servers: broker:9092
     schema-registry: http://schema-registry:9010
 
-sample:
-  topic: sample.topic
+microservices:
+  kafka:
+    topic:
+      country.covid19.statistics.changed: country.covid19.statistics.changed
+
+server:
+  port: 8888
