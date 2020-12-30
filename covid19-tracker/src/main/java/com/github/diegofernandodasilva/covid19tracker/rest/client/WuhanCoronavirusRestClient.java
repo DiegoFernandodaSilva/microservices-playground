@@ -39,6 +39,7 @@ public class WuhanCoronavirusRestClient implements Covid19ApiRestClient {
                 .fromUriString(wuhanCoronavirusConfigProps.getUrl() + LATEST)
                 .queryParam(ONLY_COUNTRIES_NAME_PARAM, true).toUriString();
 
+        log.info("Http request: GET {}", uri);
         return restTemplate.exchange(uri, HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<CountryCovid19StatisticsDTO>>() {
                 }).getBody();

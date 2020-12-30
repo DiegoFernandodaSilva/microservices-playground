@@ -7,8 +7,8 @@ import java.util.List;
 public interface Covid19ApiRestClient {
 
     /**
-     * Http request for API responsible to provide covid19 country statistics.
-     * @return {@link CountryCovid19Statistics}
+     * Http request to a external API and fetch covid19 countries statistics.
+     * @return list of {@link CountryCovid19Statistics}
      */
     List<CountryCovid19Statistics> getCountriesCovid19Statistics();
 }
