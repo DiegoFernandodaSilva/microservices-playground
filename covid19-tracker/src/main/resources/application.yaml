@@ -1,0 +1,30 @@
+spring:
+  kafka:
+    bootstrap-servers: broker:9092
+    schema-registry: http://schema-registry:9010
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: false
+    hibernate:
+      ddl-auto: create
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issueUri: http://localhost:8180/auth/realms/microservices-playground
+          jwkSetUri: http://localhost:8180/auth/realms/microservices-playground/protocol/openid-connect/certs
+
+wuhan-coronavirus:
+  url: https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai
+
+microservices:
+  oauth:
+    security:
+      enabled: true
+  kafka:
+    topic:
+      country.covid19.statistics.changed: country.covid19.statistics.changed
