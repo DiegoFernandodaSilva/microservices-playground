@@ -32,16 +32,6 @@ public class KafkaConfig {
         return new DefaultKafkaConsumerFactory<>(consumerConfigProps());
     }
 
-    @Bean
-    public ProducerFactory<String, Sample> sampleProducerFactory() {
-        return new DefaultKafkaProducerFactory<>(producerConfigProps());
-    }
-
-    @Bean
-    public KafkaTemplate<String, Sample> sampleKafkaTemplate(){
-        return new KafkaTemplate<>(sampleProducerFactory());
-    }
-
     private Map<String, Object> consumerConfigProps() {
         final Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapsServer);
@@ -49,16 +39,6 @@ public class KafkaConfig {
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaAvroDeserializer.class);
         props.put(KafkaAvroDeserializerConfig.SCHEMA_REGISTRY_URL_CONFIG, schemaRegistryURL);
         props.put(KafkaAvroDeserializerConfig.SPECIFIC_AVRO_READER_CONFIG, true);
-        return props;
-    }
-
-    private Map<String, Object> producerConfigProps() {
-        final Map<String, Object> props = new HashMap<>();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapsServer);
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class);
-        props.put(KafkaAvroSerializerConfig.SCHEMA_REGISTRY_URL_CONFIG, schemaRegistryURL);
-        props.put(KafkaAvroSerializerConfig.AUTO_REGISTER_SCHEMAS, true);
         return props;
     }
 }
