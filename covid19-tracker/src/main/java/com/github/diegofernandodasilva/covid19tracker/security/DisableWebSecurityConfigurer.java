@@ -1,4 +1,4 @@
-package com.github.diegofernandodasilva.covid19tracker.config;
+package com.github.diegofernandodasilva.covid19tracker.security;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -11,7 +11,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 /**
  * Disable security. Permit all requests.
  */
-@ConditionalOnProperty(name = ConfigProps.MICROSERVICES_OAUTH_SECURITY_ENABLED, havingValue = "false")
+@ConditionalOnProperty(name = OAuthConfigProps.MICROSERVICES_OAUTH_SECURITY_ENABLED_PROP_KEY, havingValue = "false")
 @Order(42)
 @Configuration
 @Slf4j

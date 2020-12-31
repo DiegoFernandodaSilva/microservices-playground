@@ -1,37 +1,35 @@
-package com.github.diegofernandodasilva.covid19tracker.config;
+package com.github.diegofernandodasilva.covid19tracker.security;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.security.oauth2.OAuth2AutoConfiguration;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
-
-import javax.annotation.PostConstruct;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
 /**
  * Enabled security resource server
  */
-@ConditionalOnProperty(name = ConfigProps.MICROSERVICES_OAUTH_SECURITY_ENABLED,
+@ConditionalOnProperty(name = OAuthConfigProps.MICROSERVICES_OAUTH_SECURITY_ENABLED_PROP_KEY,
         havingValue = "true",
         matchIfMissing = true)
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-@EnableResourceServer
 @EnableWebSecurity
-@AutoConfigureBefore({
-        OAuth2ResourceServerAutoConfiguration.class,
-        OAuth2AutoConfiguration.class
-})
 @Slf4j
 public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private KeycloakRoleConverter keycloakRoleConverter;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(keycloakRoleConverter);
+
         log.warn("OAuth security enabled.");
         http
                 .authorizeRequests()
@@ -43,6 +41,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .oauth2ResourceServer()
-                .jwt();
+                .jwt()
+                .jwtAuthenticationConverter(jwtAuthenticationConverter);
     }
 }

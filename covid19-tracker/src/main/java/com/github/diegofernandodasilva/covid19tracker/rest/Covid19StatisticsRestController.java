@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.security.RolesAllowed;
+
 import static com.github.diegofernandodasilva.covid19tracker.rest.Covid19StatisticsAPI.COVID19_API;
 
 @RestController
@@ -16,6 +18,7 @@ public class Covid19StatisticsRestController {
     @Autowired
     private Covid19StatisticsTrackerService covid19StatisticsTrackerService;
 
+    @RolesAllowed("ADMIN")
     @PostMapping("/synchronizeData")
     public ResponseEntity<Void> synchronizeData() {
         covid19StatisticsTrackerService.synchronizeData();

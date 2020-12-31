@@ -15,7 +15,6 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issueUri: http://localhost:8180/auth/realms/microservices-playground
           jwkSetUri: http://localhost:8180/auth/realms/microservices-playground/protocol/openid-connect/certs
 
 wuhan-coronavirus:
