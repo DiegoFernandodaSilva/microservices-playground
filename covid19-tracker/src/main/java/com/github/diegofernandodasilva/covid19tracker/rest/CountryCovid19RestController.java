@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.security.RolesAllowed;
+
 import static com.github.diegofernandodasilva.covid19tracker.rest.Covid19StatisticsAPI.COUNTRY_COVID19_API;
 
 @RestController
@@ -20,6 +22,7 @@ public class CountryCovid19RestController {
     @Autowired
     private CountryCovid19StatisticsService service;
 
+    @RolesAllowed("USER")
     @GetMapping
     public ResponseEntity<Page<CountryCovid19StatisticsDTO>> getCountryStatistics(Pageable pageable) {
         return ResponseEntity.ok(service.getAll(pageable).map(CountryCovid19StatisticsMapper.INSTANCE::map));
