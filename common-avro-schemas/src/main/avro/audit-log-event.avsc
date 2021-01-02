@@ -1,0 +1,40 @@
+{
+  "namespace": "com.github.diegofernandodasilva.microservices.playground.auditLog",
+  "type": "record",
+  "name": "AuditLogEvent",
+  "fields": [
+    {
+      "name": "source",
+      "type": "string",
+      "doc": "Component ID where the event come from."
+    },
+    {
+      "name": "action",
+      "type": "string",
+      "doc": "User's action ."
+    },
+    {
+      "name": "context",
+      "type": "AuditLogContext",
+      "doc": "Audit context with user's info."
+    },
+    {
+      "name": "status",
+      "type": {
+        "type": "enum",
+        "name": "ActionStatus",
+        "symbols": [
+          "SUCCESS",
+          "FAILURE",
+          "ATTEMPT"
+        ],
+        "doc": "Status of the user's action."
+      }
+    },
+    {
+      "name": "timestamp",
+      "type": "long",
+      "doc": "Date the event occurred."
+    }
+  ]
+}

@@ -20,11 +20,8 @@ dependencies {
 
 avro {
 	fieldVisibility = "PRIVATE"
-}
-
-java {
-	withJavadocJar()
-	withSourcesJar()
+	outputCharacterEncoding = "UTF-8"
+	stringType = "String"
 }
 
 java {

@@ -1,0 +1,17 @@
+{
+  "namespace": "com.github.diegofernandodasilva.microservices.playground.auditLog",
+  "type": "record",
+  "name": "AuditLogContext",
+  "fields": [
+    {
+      "name": "user",
+      "type": "string",
+      "doc": "User's name."
+    },
+    {
+      "name": "ipAddress",
+      "type": "string",
+      "doc": "User's IP address."
+    }
+  ]
+}

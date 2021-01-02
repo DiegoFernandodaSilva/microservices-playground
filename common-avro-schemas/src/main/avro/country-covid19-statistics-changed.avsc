@@ -24,7 +24,7 @@
       "doc": "Number of recovered from Covid19."
     },
     {
-      "name": "lastUpdate",
+      "name": "lastUpdated",
       "type": "long",
       "doc": "Last time statistics has been updated."
     }

@@ -27,3 +27,4 @@ microservices:
   kafka:
     topic:
       country.covid19.statistics.changed: country.covid19.statistics.changed
+      audit.log: audit.log
