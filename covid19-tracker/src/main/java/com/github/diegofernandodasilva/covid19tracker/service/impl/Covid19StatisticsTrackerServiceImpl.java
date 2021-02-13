@@ -1,6 +1,7 @@
 package com.github.diegofernandodasilva.covid19tracker.service.impl;
 
 import com.github.diegofernandodasilva.covid19tracker.audit.Covid19TrackerAuditLoggerService;
+import com.github.diegofernandodasilva.covid19tracker.audit.model.enums.AuditAction;
 import com.github.diegofernandodasilva.covid19tracker.repository.entity.Country;
 import com.github.diegofernandodasilva.covid19tracker.repository.entity.CountryCovid19Statistics;
 import com.github.diegofernandodasilva.covid19tracker.rest.client.Covid19ApiRestClient;
@@ -38,7 +39,7 @@ public class Covid19StatisticsTrackerServiceImpl implements Covid19StatisticsTra
     @Override
     public void synchronizeData() {
         updateAllCountriesCovid19Statistics(restClient.getCountriesCovid19Statistics());
-        auditLoggerService.log("SynchronizeData", ActionStatus.SUCCESS, Instant.now());
+        auditLoggerService.log(AuditAction.SYNCHRONIZEDATA, ActionStatus.SUCCESS, Instant.now());
 
     }
 

@@ -1,6 +1,7 @@
 package com.github.diegofernandodasilva.covid19tracker.service.impl;
 
 import com.github.diegofernandodasilva.covid19tracker.audit.Covid19TrackerAuditLoggerService;
+import com.github.diegofernandodasilva.covid19tracker.audit.model.enums.AuditAction;
 import com.github.diegofernandodasilva.covid19tracker.exception.EntityAlreadyExistsException;
 import com.github.diegofernandodasilva.covid19tracker.exception.NotFoundException;
 import com.github.diegofernandodasilva.covid19tracker.mapper.CountryCovid19StatisticsChangedMapper;
@@ -74,7 +75,7 @@ public class CountryCovid19StatisticsServiceImpl implements CountryCovid19Statis
     @Override
     public Page<CountryCovid19Statistics> getAll(@NonNull Pageable pageable) {
         Page<CountryCovid19Statistics> data = repository.findAll(pageable);
-        auditLoggerService.log("dataVizualization", ActionStatus.SUCCESS, Instant.now());
+        auditLoggerService.log(AuditAction.DATA_VISUALIZATION, ActionStatus.SUCCESS, Instant.now());
         return data;
     }
 }

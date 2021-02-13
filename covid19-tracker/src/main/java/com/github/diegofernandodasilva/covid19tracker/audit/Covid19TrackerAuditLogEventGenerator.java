@@ -1,4 +1,4 @@
-package com.github.diegofernandodasilva.covid19tracker.audit.model;
+package com.github.diegofernandodasilva.covid19tracker.audit;
 
 import com.github.diegofernandodasilva.microservices.playground.auditLog.ActionStatus;
 import com.github.diegofernandodasilva.microservices.playground.auditLog.AuditLogContext;
