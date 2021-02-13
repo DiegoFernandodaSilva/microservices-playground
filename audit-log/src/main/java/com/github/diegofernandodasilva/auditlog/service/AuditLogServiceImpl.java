@@ -19,7 +19,7 @@ public class AuditLogServiceImpl implements AuditLogService {
 
     @Override
     public AuditLog storeEvent(AuditLog event) {
-        log.info("Creating new audit event: {}", event);
+        log.info("Storing new audit event: {}", event);
         return repository.save(event);
     }
 

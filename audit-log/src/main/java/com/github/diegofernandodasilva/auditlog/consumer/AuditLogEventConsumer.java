@@ -1,8 +1,6 @@
 package com.github.diegofernandodasilva.auditlog.consumer;
 
 import com.github.diegofernandodasilva.auditlog.mapper.AuditLogMapper;
-import com.github.diegofernandodasilva.auditlog.repository.entity.AuditLog;
-import com.github.diegofernandodasilva.auditlog.repository.entity.AuditLogContext;
 import com.github.diegofernandodasilva.auditlog.service.AuditLogService;
 import com.github.diegofernandodasilva.microservices.playground.auditLog.AuditLogEvent;
 import lombok.extern.slf4j.Slf4j;
@@ -11,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
-
-import java.time.Instant;
 
 @Component
 @Slf4j
