@@ -1,7 +1,7 @@
 spring:
   application.name: audit-log-service
   kafka:
-    bootstrap-servers: broker:9092
+    bootstrap-servers: broker:29092
     schema-registry: http://schema-registry:9010
   datasource:
     url: jdbc:postgresql://localhost:15432/postgres
@@ -17,6 +17,3 @@ microservices:
   kafka:
     topic:
       audit.log: audit.log
-
-server:
-  port: 8111
