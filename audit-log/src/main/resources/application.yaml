@@ -1,4 +1,5 @@
 spring:
+  application.name: audit-log-service
   kafka:
     bootstrap-servers: broker:29092
     schema-registry: http://schema-registry:9010
@@ -11,20 +12,8 @@ spring:
     generate-ddl: false
     hibernate:
       ddl-auto: create
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwkSetUri: http://localhost:8080/auth/realms/microservices-playground/protocol/openid-connect/certs
-
-wuhan-coronavirus:
-  url: https://master-covid-19-api-laeyoung.endpoint.ainize.ai/
 
 microservices:
-  oauth:
-    security:
-      enabled: true
   kafka:
     topic:
-      country.covid19.statistics.changed: country.covid19.statistics.changed
       audit.log: audit.log

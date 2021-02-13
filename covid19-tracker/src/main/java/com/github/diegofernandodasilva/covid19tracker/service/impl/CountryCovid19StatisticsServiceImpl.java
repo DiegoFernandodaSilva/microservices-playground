@@ -1,5 +1,7 @@
 package com.github.diegofernandodasilva.covid19tracker.service.impl;
 
+import com.github.diegofernandodasilva.covid19tracker.audit.Covid19TrackerAuditLoggerService;
+import com.github.diegofernandodasilva.covid19tracker.audit.model.enums.AuditAction;
 import com.github.diegofernandodasilva.covid19tracker.exception.EntityAlreadyExistsException;
 import com.github.diegofernandodasilva.covid19tracker.exception.NotFoundException;
 import com.github.diegofernandodasilva.covid19tracker.mapper.CountryCovid19StatisticsChangedMapper;
@@ -8,6 +10,7 @@ import com.github.diegofernandodasilva.covid19tracker.repository.entity.Country;
 import com.github.diegofernandodasilva.covid19tracker.repository.entity.CountryCovid19Statistics;
 import com.github.diegofernandodasilva.covid19tracker.service.CountryCovid19StatisticsChangedSenderService;
 import com.github.diegofernandodasilva.covid19tracker.service.CountryCovid19StatisticsService;
+import com.github.diegofernandodasilva.microservices.playground.auditLog.ActionStatus;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.Optional;
 
 @Service
@@ -23,12 +27,15 @@ public class CountryCovid19StatisticsServiceImpl implements CountryCovid19Statis
 
     private CountryCovid19StatisticsRepository repository;
     private CountryCovid19StatisticsChangedSenderService changedSenderService;
+    private Covid19TrackerAuditLoggerService auditLoggerService;
 
     @Autowired
     public CountryCovid19StatisticsServiceImpl(CountryCovid19StatisticsRepository repository,
-                                               CountryCovid19StatisticsChangedSenderService changedSenderService) {
+                                               CountryCovid19StatisticsChangedSenderService changedSenderService,
+                                               Covid19TrackerAuditLoggerService auditLoggerService) {
         this.repository = repository;
         this.changedSenderService = changedSenderService;
+        this.auditLoggerService = auditLoggerService;
     }
 
     @Override
@@ -67,6 +74,8 @@ public class CountryCovid19StatisticsServiceImpl implements CountryCovid19Statis
 
     @Override
     public Page<CountryCovid19Statistics> getAll(@NonNull Pageable pageable) {
-        return repository.findAll(pageable);
+        Page<CountryCovid19Statistics> data = repository.findAll(pageable);
+        auditLoggerService.log(AuditAction.DATA_VISUALIZATION, ActionStatus.SUCCESS, Instant.now());
+        return data;
     }
 }
